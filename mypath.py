@@ -8,7 +8,8 @@ class Path(object):
         elif dataset == 'cityscapes':
             return '/path/to/datasets/cityscapes/'     # foler that contains leftImg8bit/
         elif dataset == 'coco':
-            return '..\coco-data'
+            #return '..\coco-data'
+            return 'D:\deeplabv3\emdsdeep\dataloaders\datasets\coco'
         else:
             print('Dataset {} not available.'.format(dataset))
             raise NotImplementedError
