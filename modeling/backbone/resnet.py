@@ -117,11 +117,12 @@ class ResNet(nn.Module):
         x = self.maxpool(x)
 
         x = self.layer1(x)
-        low_level_feat = x
+        low_level_feat1 = x
         x = self.layer2(x)
+        low_level_feat2 = x
         x = self.layer3(x)
         x = self.layer4(x)
-        return x, low_level_feat
+        return x, low_level_feat1, low_level_feat2
 
     def _init_weight(self):
         for m in self.modules():
@@ -157,6 +158,6 @@ if __name__ == "__main__":
     import torch
     model = ResNet101(BatchNorm=nn.BatchNorm2d, pretrained=True, output_stride=8)
     input = torch.rand(1, 3, 512, 512)
-    output, low_level_feat = model(input)
+    output, low_level_feat1, low_level_feat2 = model(input)
     print(output.size())
-    print(low_level_feat.size())
+    print(low_level_feat1.size(), low_level_feat2.size())
