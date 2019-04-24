@@ -5,6 +5,7 @@ from modeling.sync_batchnorm.batchnorm import SynchronizedBatchNorm2d
 from modeling.aspp import build_aspp
 from modeling.decoder import build_decoder
 from modeling.backbone import build_backbone
+from modeling.encoding import build_encoding
 
 class DeepLab(nn.Module):
     def __init__(self, backbone='resnet', output_stride=16, num_classes=21,
@@ -20,15 +21,17 @@ class DeepLab(nn.Module):
 
         self.backbone = build_backbone(backbone, output_stride, BatchNorm)
         self.aspp = build_aspp(backbone, output_stride, BatchNorm)
+        self.encoding = build_encoding(backbone, num_classes, BatchNorm)
         self.decoder = build_decoder(num_classes, backbone, BatchNorm)
 
         if freeze_bn:
             self.freeze_bn()
 
     def forward(self, input):
-        x, low_level_feat1, low_level_feat2 = self.backbone(input)
+        x, low_level_feat = self.backbone(input)
+        x_enc, x_class = self.encoding(x)
         x = self.aspp(x)
-        x = self.decoder(x, low_level_feat1, low_level_feat2)
+        x = self.decoder(x, low_level_feat)
         x = F.interpolate(x, size=input.size()[2:], mode='bilinear', align_corners=True)
 
         return x
