@@ -18,8 +18,7 @@ except ImportError:
 import torch
 from torch.nn.modules.batchnorm import _BatchNorm
 
-from ..utils.misc import EncodingDeprecationWarning
-from ..functions import *
+from modeling.functions import *
 
 
 __all__ = ['SyncBatchNorm', 'BatchNorm1d', 'BatchNorm2d', 'BatchNorm3d']
@@ -158,3 +157,8 @@ class BatchNorm3d(SyncBatchNorm):
         warnings.warn("encoding.nn.{} is now deprecated in favor of encoding.nn.{}."
                       .format('BatchNorm3d', SyncBatchNorm.__name__), EncodingDeprecationWarning)
         super(BatchNorm3d, self).__init__(*args, **kwargs)
+
+class EncodingDeprecationWarning(DeprecationWarning):
+    pass
+
+warnings.simplefilter('once', EncodingDeprecationWarning)

@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import Parameter
 
-from modeling.functions import scaled_l2, aggregate
+from modeling.functions import *
 
 class EncModule(nn.Module):
     def __init__(self, in_channels, nclass, norm_layer=None, ncodes=32, se_loss=True):
