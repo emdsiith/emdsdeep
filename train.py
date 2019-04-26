@@ -103,8 +103,8 @@ class Trainer(object):
                 image, target = image.cuda(), target.cuda()
             self.scheduler(self.optimizer, i, epoch, self.best_pred)
             self.optimizer.zero_grad()
-            output = self.model(image)
-            loss = self.criterion(*output, target)
+            output, se_out = self.model(image)
+            loss = self.criterion(output, se_out, target)
             loss.backward()
             self.optimizer.step()
             train_loss += loss.item()
@@ -141,8 +141,8 @@ class Trainer(object):
             if self.args.cuda:
                 image, target = image.cuda(), target.cuda()
             with torch.no_grad():
-                output = self.model(image)
-            loss = self.criterion(*output, target)
+                output, se_out = self.model(image)
+            loss = self.criterion(output, se_out, target)
             test_loss += loss.item()
             tbar.set_description('Test loss: %.3f' % (test_loss / (i + 1)))
             pred = output.data.cpu().numpy()
