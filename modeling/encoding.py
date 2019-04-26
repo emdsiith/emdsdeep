@@ -24,6 +24,11 @@ class EncModule(nn.Module):
         if self.se_loss:
             self.selayer = nn.Linear(in_channels, nclass)
 
+        self.last_conv = nn.Sequential(nn.Conv2d(1280, 256, 1, bias=False),
+                                       norm_layer(256),
+                                       nn.ReLU(),
+                                       nn.Dropout(0.5))
+
     def forward(self, x):
         en = self.encoding(x)
         b, c, _, _ = x.size()
@@ -32,6 +37,7 @@ class EncModule(nn.Module):
         outputs = [F.relu_(x + x * y)]
         if self.se_loss:
             outputs.append(self.selayer(en))
+        outputs[0] = self.last_conv(outputs[0])
         return tuple(outputs)
 
 
