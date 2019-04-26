@@ -3,13 +3,14 @@ import torch.nn as nn
 from torch.autograd import Variable
 
 class SegmentationLosses(object):
-    def __init__(self, weight=None, size_average=True, batch_average=True, ignore_index=255, se_weight=0.2, cuda=False):
+    def __init__(self, weight=None, size_average=True, batch_average=True, ignore_index=255, se_weight=0.2, nclass=-1, cuda=False):
         self.ignore_index = ignore_index
         self.weight = weight
         self.se_weight = se_weight
         self.size_average = size_average
         self.batch_average = batch_average
         self.cuda = cuda
+        self.nclass = nclass
         self.bceloss = nn.BCELoss() 
 
     def build_loss(self, mode='ce'):
