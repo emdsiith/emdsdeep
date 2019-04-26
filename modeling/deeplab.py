@@ -7,6 +7,8 @@ from modeling.decoder import build_decoder
 from modeling.backbone import build_backbone
 from modeling.encoding import build_encoding
 
+from modeling.nn.syncbn import SyncBatchNorm
+
 class DeepLab(nn.Module):
     def __init__(self, backbone='resnet', output_stride=16, num_classes=21,
                  sync_bn=True, freeze_bn=False):
@@ -15,7 +17,7 @@ class DeepLab(nn.Module):
             output_stride = 8
 
         if sync_bn == True:
-            BatchNorm = SynchronizedBatchNorm2d
+            BatchNorm = SyncBatchNorm
         else:
             BatchNorm = nn.BatchNorm2d
 
