@@ -31,8 +31,9 @@ class DeepLab(nn.Module):
 
     def forward(self, input):
         x, low_level_feat = self.backbone(input)
-        x = self.aspp(x)
-        x, x_class = self.encoding(x)
+        x_aspp = self.aspp(x)
+        x_encode, x_class = self.encoding(x)
+        x = x_aspp + x_encode
         x = self.decoder(x, low_level_feat)
         x = F.interpolate(x, size=input.size()[2:], mode='bilinear', align_corners=True)
 

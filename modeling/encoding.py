@@ -148,6 +148,6 @@ def build_encoding(backbone, num_classes, BatchNorm):
   elif backbone == 'mobilenet':
     in_channels = 320
   else:
-    in_channels = 1280
+    in_channels = 2048
 
   return EncModule(in_channels, num_classes, BatchNorm)
