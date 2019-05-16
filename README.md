@@ -1,5 +1,9 @@
 # pytorch-deeplab-xception
 
+**Update on 2019/01/05. Added Non-Bottleneck layers for the decoder modules to improve the upsampling performance**  
+
+**Update on 2019/01/05. Added ASPP context encoding modules after the Resnet101 encoders to improve the global context learning information**  
+
 **Update on 2018/12/06. Provide model trained on VOC and SBD datasets.**  
 
 **Update on 2018/11/24. Release newest version code, which fix some previous issues and also add support for new backbones and multi-gpu training. For previous code, please see in `previous` branch**  
