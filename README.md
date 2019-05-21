@@ -2,7 +2,7 @@
 
 **Update on 2019/01/05. Added Non-Bottleneck layers for the decoder modules to improve the upsampling performance**  
 
-**Update on 2019/01/05. Added ASPP context encoding modules after the Resnet101 encoders to improve the global context learning information**  
+**Update on 2019/01/05. Added Context encoding modules to improve the global context learning information**  
 
 **Update on 2018/12/06. Provide model trained on VOC and SBD datasets.**  
 
